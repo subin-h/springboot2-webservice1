@@ -1,0 +1,36 @@
+//build.gradle = 그래들(소프트웨어가 제품으로 만들어지는 일련의 과정, 즉 컴파일,테스트,배포,문서화 작업 등의 절차)에서 빌드 작업에 필요한 기본 설정
+buildscript { // 빌드하는 동안 필요한 처리를 모아놓는 곳
+    ext{ //전역 변수 설정
+        springBootVersion = '2.1.7.RELEASE' //2.1.7 버전을 사용하였다. 버전 관리 중요
+    }
+    repositories { //저장소, 패키지 소스를 의미, 패키지들 버전들의 목록을 의미 (소프트웨어를 등록하여 관리하는 장소)
+        mavenCentral() // 중앙저장소
+        jcenter() //저장소
+    }
+    dependencies { //의존성에 관한 설정을 관리하는 프로퍼티, 라이브러리 참조 가능
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") //플러그인 의존성을 받겠다는 의미
+    }
+}
+
+// 위 코드는 이 프로젝트의 플러그인 의존성 관리를 위한 "설정"
+
+apply plugin : 'java'
+apply plugin : 'eclipse'
+apply plugin : 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management' //이 플러그인은 스프링 부트의 의존성을 관리. 무조건 필요함.
+
+//위 4개 플러그인은 자바와 스프링부트를 사용하기 위한 필수 플러그인이니 항상 추가해야 함.
+
+group 'com.jojoldu.book'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies { // 의존성 코드는 특정 버전을 명시하면 안됨. 그래야 위의 spring boot version을 따라감.
+    compile('org.springframework.boot:spring-boot-starter-web')
+    testCompile('org.springframework.boot:spring-boot-starter-test') //test 파일을 만드는 라이브러리
+}
